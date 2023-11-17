@@ -1,0 +1,82 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "cat-classifier"
+spec:
+  predictor:
+    serviceAccountName: s3-read-only
+    model:
+      modelFormat:
+        name: pytorch
+      storageUri: s3://tsai-emlo/kserve-ig/cat-classifier/
+      # resources:
+      #   limits:
+      #     cpu: 2000m
+
+---
+
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "dog-classifier"
+spec:
+  predictor:
+    serviceAccountName: s3-read-only
+    model:
+      modelFormat:
+        name: pytorch
+      storageUri: s3://tsai-emlo/kserve-ig/dog-classifier/
+      # resources:
+      #   limits:
+      #     cpu: 2000m
+
+---
+
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "food-classifier"
+spec:
+  predictor:
+    serviceAccountName: s3-read-only
+    model:
+      modelFormat:
+        name: pytorch
+      storageUri: s3://tsai-emlo/kserve-ig/food-classifier/
+      # resources:
+      #   limits:
+      #     cpu: 2000m
+
+---
+
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "imagenet-vit"
+spec:
+  predictor:
+    serviceAccountName: s3-read-only
+    model:
+      modelFormat:
+        name: pytorch
+      storageUri: s3://tsai-emlo/kserve-ig/imagenet-vit/
+      # resources:
+      #   limits:
+      #     cpu: 2000m
+
+---
+
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "indian-food-classifier"
+spec:
+  predictor:
+    serviceAccountName: s3-read-only
+    model:
+      modelFormat:
+        name: pytorch
+      storageUri: s3://tsai-emlo/kserve-ig/indian-food-classifier/
+      # resources:
+      #   limits:
+      #     cpu: 2000m

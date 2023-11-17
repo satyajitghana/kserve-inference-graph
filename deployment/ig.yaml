@@ -1,0 +1,37 @@
+apiVersion: "serving.kserve.io/v1alpha1"
+kind: "InferenceGraph"
+metadata:
+  name: "classifier"
+spec:
+  nodes:
+    root:
+      routerType: Sequence
+      steps:
+      - serviceName: imagenet-vit
+        name: imagenet_classify
+      - nodeName: cat_dog_ensemble
+        name: cat_dog_ensemble
+        condition: "[@this].#(predictions.0.probability<0.6)"
+        dependency: Soft
+      - nodeName: food_ensemble
+        name: food_ensemble
+        condition: "[@this].#(imagenet_classify.predictions.0.class==\"plate\")"
+        dependency: Soft
+    cat_dog_ensemble:
+      routerType: Ensemble
+      steps:
+      - serviceName: dog-classifier
+        name: dog_breed_classifier
+      - serviceName: cat-classifier
+        name: cat_breed_classifier
+      - serviceName: imagenet-vit
+        name: imagenet_classify
+    food_ensemble:
+      routerType: Ensemble
+      steps:
+      - serviceName: food-classifier
+        name: food_classifier
+      - serviceName: indian-food-classifier
+        name: indian_food_classifier
+      - serviceName: imagenet-vit
+        name: imagenet_classify
